@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>User Select | Destiny Academy</title>
+  <style>
+    body {
+      background: #001024;
+      height: 100vh;
+      font-family: 'Poppins', sans-serif;
+      color: #b3e5ff;
+    }
+
+    h1 {
+      font-size: 5vmin;
+      text-shadow: 0 0 10px #64b5f6;
+      text-align: center;
+    }
+
+    .app {
+      max-width: 900px;
+      margin: 0 auto;
+      background: rgba(255, 255, 255, 0.05);
+      border-left: 4px solid #00ffcc;
+      padding: 2rem;
+      border-radius: 1rem;
+      box-shadow: 0 0 15px rgba(0, 150, 255, 0.2);
+    }
+
+    .user {
+      background-color: #f7f3f3;
+      border: 1px solid #001;
+      height: auto;
+      width: 70%;
+      margin-bottom: 15px;
+      text-align: left;
+      font-size: 18px;
+      border-radius: 30px;
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      padding: 10px 15px;
+      flex-wrap: wrap;
+      position: relative;
+    }
+
+    .user:hover {
+      cursor: pointer;
+      background-color: #fbe9e9a9;
+    }
+
+    .user img {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+    }
+
+    .user-details {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .actions {
+      margin-left: auto;
+      display: flex;
+      gap: 10px;
+    }
+
+    .actions button {
+      padding: 5px 10px;
+      font-size: 14px;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+    }
+
+    .edit-btn {
+      background-color: #0277bd;
+      color: white;
+    }
+
+    .delete-btn {
+      background-color: #d32f2f;
+      color: white;
+    }
+
+    a {
+      text-decoration: none;
+      background-color: #032248;
+      padding: 10px;
+      border-radius: 10px;
+      color: white;
+      display: inline-block;
+      margin-top: 20px;
+    }
+
+    #header {
+      font-size: 30px;
+      font-family: 'Courier New', Courier, monospace;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      margin-left: 450px;
+    }
+
+    br {
+      font-size: 100px;
+    }
+
+    @keyframes fadeIn {
+      to {
+        opacity: 1;
+      }
+    }
+
+    .app_name{
+      opacity: 0;
+      animation: fadeIn 2.4s forwards;
+    }
+
+    .app_name:nth-child(1) {
+      animation-delay: 0.2s;
+    }
+
+    .app_name:nth-child(2) {
+      animation-delay: 0.4s;
+    }
+
+    .app_name:nth-child(3) {
+      animation-delay: 0.6s;
+    }
+
+    .app_name:nth-child(4) {
+      animation-delay: 0.8s;
+    }
+
+    .app_name:nth-child(5) {
+      animation-delay: 1.0s;
+    }
+
+    .app_name:nth-child(6) {
+      animation-delay: 1.2s;
+    }
+
+    .app_name:nth-child(7) {
+      animation-delay: 1.4s;
+    }
+
+    .app_name:nth-child(8) {
+      animation-delay: 1.6s;
+    }
+
+    .app_name:nth-child(9) {
+      animation-delay: 1.8s;
+    }
+
+    .app_name:nth-child(10) {
+      animation-delay: 2.0s;
+    }
+
+    .app_name:nth-child(11) {
+      animation-delay: 2.2s;
+    }
+
+    .app_name:nth-child(12) {
+      animation-delay: 2.4s;
+    }
+    .app_name:nth-child(13) {
+      animation-delay: 2.6s;
+    }
+
+    .app_name:nth-child(14) {
+      animation-delay: 2.8s;
+    }
+
+    .app_name:nth-child(15) {
+      animation-delay: 3.0s;
+    }
+    .in{
+      color: #001024;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div id="header">
+    <span class="app_name">D</span>
+    <span class="app_name">E</span>
+    <span class="app_name">S</span>
+    <span class="app_name">T</span>
+    <span class="app_name">I</span>
+    <span class="app_name">N</span>
+    <span class="app_name">Y</span>
+    <span class="app_name in">8</span>
+    <span class="app_name">A</span>
+    <span class="app_name">C</span>
+    <span class="app_name">A</span>
+    <span class="app_name">D</span>
+    <span class="app_name">E</span>
+    <span class="app_name">M</span>
+    <span class="app_name">Y</span>
+  </div><br><br>
+  <div class="app">
+    <h1>Select a User</h1>
+    <div class="users" id="usersContainer"></div>
+
+    <a href="user_create.html">Create new user &rightarrow;</a>
+  </div>
+
+  <script>
+    let users = JSON.parse(localStorage.getItem("users")) || [];
+    const container = document.getElementById("usersContainer");
+
+    function displayUsers() {
+      container.innerHTML = '';
+      if (users.length === 0) {
+        container.innerHTML = "<p>No users yet. Create one.</p>";
+        return;
+      }
+
+      users.forEach((user, index) => {
+        const div = document.createElement('div');
+        div.className = 'user';
+
+        div.innerHTML = `
+      <img src="${user.profilePic || 'Images/ProfilePhoto.jpg'}">
+      <div class="user-details">
+        <strong>${user.name}</strong><br>
+        Class: ${user.className} | School: ${user.school}<br>
+        <small>XP: ${user.xp || 0}</small>
+      </div>
+      <div class="actions">
+        <button class="edit-btn">Edit</button>
+        <button class="delete-btn">Delete</button>
+      </div>
+    `;
+
+        div.addEventListener('click', (e) => {
+          if (!e.target.classList.contains('edit-btn') && !e.target.classList.contains('delete-btn')) {
+            selectUser(index);   // Pass index, not the object
+          }
+        });
+
+        div.querySelector('.edit-btn').addEventListener('click', (e) => {
+          e.stopPropagation();
+          editUser(index);
+        });
+
+        div.querySelector('.delete-btn').addEventListener('click', (e) => {
+          e.stopPropagation();
+          deleteUser(index);
+        });
+
+        container.appendChild(div);
+      });
+    }
+
+    // FIXED: selectUser now properly loads the latest data
+    function selectUser(index) {
+      let user = users[index];
+
+      // Make sure xp exists
+      if (typeof user.xp !== "number") {
+        user.xp = 0;
+      }
+
+      // Save the **latest** version as currentUser
+      localStorage.setItem("currentUser", JSON.stringify(user));
+
+      window.location.href = "select.html";   // ← Change if your main page has a different name
+    }
+
+    function editUser(index) {
+      localStorage.setItem("editUserIndex", index);
+      window.location.href = "user_create.html?edit=true";
+    }
+
+    function deleteUser(index) {
+      if (confirm("Delete this user?")) {
+        users.splice(index, 1);
+        localStorage.setItem("users", JSON.stringify(users));
+        displayUsers();
+      }
+    }
+
+    displayUsers();
+  </script>
+</body>
+
+</html>

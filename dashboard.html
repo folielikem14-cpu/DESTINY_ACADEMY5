@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Profile | Destiny Academy</title>
+<style>
+body {
+  background: radial-gradient(circle at center, #001024, #000);
+  font-family: 'Poppins', sans-serif;
+  color: #b3e5ff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.app {
+  margin-top: -100px;
+  background: rgba(255, 255, 255, 0.05);
+  padding: 2rem;
+  border-radius: 1rem;
+  box-shadow: 0 0 15px rgba(0, 150, 255, 0.2);
+  text-align: center;
+}
+
+img {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  margin-bottom: 10px;
+}
+    .back-btn {
+      margin-bottom: 2rem;
+      color: #fff;
+      font-weight: 600;
+      transition: 0.3s;
+      display: inline-block;
+    }
+
+    .back-btn:hover {
+      color: #0066ff;
+    }
+
+        a {
+      text-decoration: none;
+      color: #fff;
+    }
+
+    a:hover {
+      color: #0066ff;
+      text-decoration: underline;
+    }
+</style>
+</head>
+<body>
+<div class="app" id="dashboard"></div>
+
+<script>
+const user = JSON.parse(localStorage.getItem("currentUser"));
+const dash = document.getElementById("dashboard");
+
+if (!user) {
+  dash.innerHTML = `
+  <h1>No user selected</h1>
+  <a href="select.html" class="back-btn">← Back to Menu</a>`;
+} else {
+  dash.innerHTML = `
+  <h1 style="text-decoration: underline;">Profile</h1>
+    <img src="${user.profilePic || 'Images/ProfilePhoto.jpg'}">
+    <h1>${user.name}</h1>
+    <p>Class: ${user.className}</p>
+    <p>School: ${user.school}</p>
+    <p>Email: ${user.email}</p>
+    <p>Bio: ${user.bio}</p>
+    <a href="select.html" class="back-btn">← Back to Menu</a>
+  `;
+}
+</script>
+</body>
+</html>

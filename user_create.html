@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Create/Edit User | Destiny Academy</title>
+<style>
+  body {
+    background: radial-gradient(circle at center, #001024, #000);
+    font-family: 'Poppins', sans-serif;
+    color: #b3e5ff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    margin: 0;
+  }
+  .app {
+    max-width: 600px;
+    width: 90%;
+    background: rgba(255,255,255,0.05);
+    border-left: 4px solid #00ffcc;
+    padding: 2rem;
+    border-radius: 1rem;
+    text-align: center;
+  }
+  input, textarea {
+    width: 80%;
+    padding: 12px;
+    margin: 8px 0;
+    border-radius: 30px;
+    border: 1px solid #001;
+    font-size: 16px;
+  }
+  button {
+    padding: 12px 30px;
+    font-size: 18px;
+    background: #032248;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    margin-top: 15px;
+  }
+  #preview {
+    width: 120px; height: 120px; border-radius: 50%; object-fit: cover;
+    border: 3px solid #00ffcc; margin: 10px auto; display: none;
+  }
+      .back-btn {
+      margin-bottom: 2rem;
+      color: #fff;
+      font-weight: 600;
+      transition: 0.3s;
+      display: inline-block;
+    }
+
+    .back-btn:hover {
+      color: #0066ff;
+    }
+    
+    a {
+      text-decoration: none;
+      color: #fff;
+    }
+
+    a:hover {
+      color: #0066ff;
+      text-decoration: underline;
+    }
+
+</style>
+</head>
+<body>
+<div class="app">
+  <h1 id="formTitle">Create New User</h1>
+  
+    <a href="profile.html" class="back-btn">← Back to Profile</a>
+  
+  <input id="name" placeholder="Full Name" required><br>
+  <input type="number" id="className" placeholder="Class (e.g. 1-6)" min="1" max="9"><br>
+  <input id="school" placeholder="School Name"><br>
+  <input id="email" placeholder="Email"><br>
+  <textarea id="bio" placeholder="Short Bio" rows="3" maxlength="255"></textarea><br>
+
+  <label><b>Profile Picture</b></label><br>
+  <input type="file" id="profilePic" accept="image/*"><br>
+  <img id="preview" alt="Preview">
+
+  <button onclick="saveUserA()">Save User</button>
+</div>
+
+<script>
+let users = JSON.parse(localStorage.getItem("users")) || [];
+const params = new URLSearchParams(window.location.search);
+const isEdit = params.get('edit') === 'true';
+let editIndex = localStorage.getItem("editUserIndex");
+
+const preview = document.getElementById("preview");
+const profileInput = document.getElementById("profilePic");
+
+function saveUserA() {
+  if(document.getElementById('className').value < 1 || document.getElementById('className').value > 9){
+    alert("Enter a Valid Class")
+  }
+  else{
+    saveUser()
+  }
+}
+
+// Load data if editing
+if (isEdit && editIndex !== null) {
+  editIndex = parseInt(editIndex);
+  const user = users[editIndex];
+  if (user) {
+    document.getElementById('name').value = user.name || '';
+    document.getElementById('className').value = user.className || '';
+    document.getElementById('school').value = user.school || '';
+    document.getElementById('email').value = user.email || '';
+    document.getElementById('bio').value = user.bio || '';
+    if (user.profilePic) {
+      preview.src = user.profilePic;
+      preview.style.display = 'block';
+    }
+    document.getElementById('formTitle').innerText = 'Edit User';
+  }
+}
+
+// Image Preview
+profileInput.addEventListener("change", () => {
+  const file = profileInput.files[0];
+  if (file) {
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      preview.src = e.target.result;
+      preview.style.display = 'block';
+    };
+    reader.readAsDataURL(file);
+  }
+});
+
+function saveUser() {
+  const name = document.getElementById("name").value.trim();
+  const className = document.getElementById("className").value.trim();
+  const school = document.getElementById("school").value.trim();
+  const email = document.getElementById("email").value.trim();
+  const bio = document.getElementById("bio").value.trim();
+
+  if (!name || !className || !email) {
+    alert("Please fill Name, Class, and Email");
+    return;
+  }
+
+  function finalizeSave(profilePic) {
+    const userObj = {
+      name,
+      className,
+      school,
+      email,
+      bio,
+      profilePic: profilePic || (isEdit ? users[editIndex]?.profilePic : null),
+      xp: isEdit ? (users[editIndex]?.xp || 0) : 30   // New users start with 30 XP
+    };
+
+    if (isEdit && editIndex !== null) {
+      users[editIndex] = userObj;
+      localStorage.removeItem("editUserIndex");
+    } else {
+      users.push(userObj);
+    }
+
+    localStorage.setItem("users", JSON.stringify(users));
+    alert(isEdit ? "User updated successfully!" : "New user created!");
+    window.location.href = "profile.html";   // Go back to user selection
+  }
+
+  // Handle image
+  if (profileInput.files.length > 0) {
+    const reader = new FileReader();
+    reader.onload = () => finalizeSave(reader.result);
+    reader.readAsDataURL(profileInput.files[0]);
+  } else {
+    finalizeSave(null);
+  }
+}
+</script>
+</body>
+</html>

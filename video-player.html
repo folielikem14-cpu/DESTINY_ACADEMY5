@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PDF Viewer | Destiny Academy</title>
+
+  <style>
+    body {
+      margin: 0;
+      font-family: Poppins, sans-serif;
+      background: #f0f4f8;
+    }
+
+    video {
+      width: 100%;
+      max-width: 900px;
+      margin-bottom: 1rem;
+    }
+
+    header {
+      background: #002b55;
+      color: white;
+      padding: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    header a {
+      color: white;
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    iframe {
+      width: 100%;
+      height: calc(100vh - 60px);
+      border: none;
+    }
+
+    span {
+      cursor: pointer;
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <span onclick="window.location.href=`library_${library_attachment}.html`">← Back to Library</span>
+    <strong>Video Player</strong>
+  </header>
+<div class="vi">
+  <video controls id="videoPlayer">
+    <source id="videoSource" type="video/mp4">
+    Your browser does not support HTML5 video.
+  </video>
+  </div>
+
+  <script>
+    const user = JSON.parse(localStorage.getItem("currentUser"));
+    const profile_pic = document.getElementById("profile_pic");
+    const User_XP = document.getElementById("User_XP")
+    const User_name = document.getElementById("User_name")
+
+
+    if (user.className <= 3) {
+      library_attachment = "lo"
+    }
+    else {
+      library_attachment = "up"
+    }
+
+    // Get the video file from URL parameters
+    const params = new URLSearchParams(window.location.search);
+    const videoFile = params.get("file") || "Library/Michael Faraday_ The Father of Electricity.mp4"; // default video if none provided
+
+    const video = document.getElementById("videoPlayer");
+    const source = document.getElementById("videoSource");
+    const downloadLink = document.getElementById("downloadLink");
+
+    // Assign the video src and download link
+    source.src = videoFile;
+    video.load();
+    downloadLink.href = videoFile;
+
+  </script>
+
+</body>
+
+</html>

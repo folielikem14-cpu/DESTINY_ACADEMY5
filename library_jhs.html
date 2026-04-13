@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Library | Destiny Academy</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Poppins, sans-serif;
+      background: #f0f4f8;
+      padding: 2rem;
+      color: #001024;
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    .controls {
+      max-width: 1200px;
+      margin: 0 auto 2rem;
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    input,
+    select {
+      padding: 0.7rem;
+      font-size: 1rem;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 1.5rem;
+      max-width: 1200px;
+      margin: auto;
+    }
+
+    .item {
+      background: #fff;
+      border-radius: 16px;
+      box-shadow: 0 0 12px rgba(0, 0, 0, 0.1);
+      padding: 1rem;
+      text-align: center;
+      transition: 0.3s;
+    }
+
+    .item:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 0 18px rgba(0, 100, 255, 0.3);
+    }
+
+    .item img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+      border-radius: 10px;
+    }
+
+    .item h3 {
+      font-size: 1rem;
+      margin: 0.5rem 0;
+    }
+
+    .item a {
+      text-decoration: none;
+      font-weight: 600;
+      color: #0066ff;
+    }
+
+    .subject-title {
+      font-size: 1.5rem;
+      margin: 2rem 0 1rem;
+      color: #001024;
+      text-align: left;
+    }
+
+    #User_name::before {
+      content: "NAME";
+      width: 50px;
+      height: 30px;
+      border: 2px solid #81d4fa;
+      border-top-left-radius: 6px;
+      border-bottom-left-radius: 6px;
+      padding: 5px;
+      background: linear-gradient(#1ad04d, #18a8dc);
+      margin-right: 5px;
+    }
+
+    #User_name {
+      position: absolute;
+      top: 40px;
+      left: 30px;
+      border: 2px solid #81d4fa;
+      border-top-left-radius: 6px;
+      border-bottom-left-radius: 6px;
+      border-top-right-radius: 6px;
+      border-bottom-right-radius: 6px;
+      background-color: #fff;
+      border-left: none;
+      padding: 5px;
+      padding-left: 0;
+    }
+
+    #User_XP::before {
+      content: "XP";
+      padding-right: 100px;
+      height: 30px;
+      border: 2px solid #81d4fa;
+      border-top-left-radius: 6px;
+      border-bottom-left-radius: 6px;
+      padding: 5px;
+      background: linear-gradient(#1ad04d, #18a8dc);
+      margin-right: 5px;
+    }
+
+    #User_XP {
+      position: absolute;
+      top: 40px;
+      right: 120px;
+      border: 2px solid #81d4fa;
+      border-top-left-radius: 6px;
+      border-bottom-left-radius: 6px;
+      border-top-right-radius: 6px;
+      border-bottom-right-radius: 6px;
+      background-color: #fff;
+      border-left: none;
+      padding: 5px;
+      padding-left: 0;
+    }
+        .back-btn {
+      margin-bottom: 2rem;
+      color: #000;
+      font-weight: 600;
+      transition: 0.3s;
+      display: block;
+      text-align: center;
+    }
+    .back-btn:hover {
+      color: #0066ff;
+    }
+
+        a {
+      text-decoration: none;
+      color: #000;
+    }
+
+    a:hover {
+      color: #0066ff;
+      text-decoration: underline;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="user_details">
+    <span id="User_name"></span>
+    <span id="User_XP"></span>
+  </div>
+  <h1>📚 Destiny Academy Library</h1>
+  
+    <a href="select.html" class="back-btn">← Back to Menu</a>
+
+  <div class="controls">
+    <input type="text" id="search" placeholder="Search library...">
+    <select id="filter">
+      <option value="all">All Types</option>
+      <option value="book">Books</option>
+      <option value="video">Videos</option>
+      <option value="picture">Pictures</option>
+    </select>
+  </div>
+
+  <div class="grid">
+  </div>
+
+  <script>
+    const search = document.getElementById("search");
+    const filter = document.getElementById("filter");
+    const items = document.querySelectorAll(".item");
+
+    function update() {
+      const text = search.value.toLowerCase();
+      const type = filter.value;
+
+      items.forEach(item => {
+        const matchText = item.dataset.title.toLowerCase().includes(text);
+        const matchType = type === "all" || item.dataset.type === type;
+        item.style.display = (matchText && matchType) ? "block" : "none";
+      });
+    }
+
+    search.addEventListener("input", update);
+    filter.addEventListener("change", update);
+
+    const user = JSON.parse(localStorage.getItem("currentUser"));
+    const profile_pic = document.getElementById("profile_pic");
+    const User_XP = document.getElementById("User_XP")
+    const User_name = document.getElementById("User_name")
+
+    if (!user) {
+      dash.innerHTML = "<h1>No user selected</h1>";
+    } else {
+      User_name.innerHTML = `${user.name}`
+      User_XP.innerHTML = `${user.xp}`
+    }
+  </script>
+
+</body>
+
+</html>

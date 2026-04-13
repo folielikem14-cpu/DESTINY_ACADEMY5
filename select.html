@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Menu | Destiny Academy</title>
+  <style>
+    body {
+      background: radial-gradient(circle at center, #001024, #000);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      font-family: 'Poppins', sans-serif;
+      color: #b3e5ff;
+    }
+
+    h1 {
+      font-size: 5vmin;
+      margin-bottom: 5vh;
+      text-shadow: 0 0 10px #64b5f6;
+      text-align: center;
+    }
+
+    .options {
+      display: flex;
+      gap: 3vw;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .option-btn {
+      background: #001a33;
+      border: 2px solid #64b5f6;
+      border-radius: 15px;
+      padding: 2.5vh 4vw;
+      font-size: 3vmin;
+      color: #b3e5ff;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 0 10px #64b5f6;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 150px;
+    }
+
+    .option-btn:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 20px #64b5f6, 0 0 30px #81d4fa;
+    }
+
+    .option-btn img {
+      width: 50px;
+      height: 50px;
+      margin-bottom: 1vh;
+    }
+
+    /* Fade-in animation */
+    .option-btn {
+      opacity: 0;
+      animation: fadeIn 1s ease forwards;
+    }
+
+    .option-btn:nth-child(1) {
+      animation-delay: 0.3s;
+    }
+
+    .option-btn:nth-child(2) {
+      animation-delay: 0.6s;
+    }
+
+    .option-btn:nth-child(3) {
+      animation-delay: 0.9s;
+    }
+
+    @keyframes fadeIn {
+      to {
+        opacity: 1;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .options {
+        flex-direction: column;
+        gap: 4vh;
+      }
+
+      .option-btn {
+        width: 60%;
+      }
+    }
+
+    #profilePic {
+      position: absolute;
+      top: 175px;
+      right: 120px;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      border: 4px solid #64b5f6;
+    }
+
+    #profile_pic:hover {
+      cursor: pointer;
+    }
+
+    #User_name::before{
+      content: "NAME";
+      width: 50px;
+      height: 30px;
+      border: 2px solid #81d4fa;
+      border-top-left-radius: 6px;
+      border-bottom-left-radius: 6px;
+      padding: 5px;
+      background: linear-gradient(#1ad04d, #18a8dc);
+      margin-right: 5px;
+    }
+    #User_name{
+      position: absolute;
+      top: 40px;
+      left: 30px;
+      border: 2px solid #81d4fa;
+      border-top-left-radius: 6px;
+      border-bottom-left-radius: 6px;
+      border-top-right-radius: 6px;
+      border-bottom-right-radius: 6px;
+      background-color: #fff;
+      border-left: none;
+      padding: 5px;
+      padding-left: 0;
+    }
+    #User_XP::before{
+      content: "XP";
+      padding-right: 100px;
+      height: 30px;
+      border: 2px solid #81d4fa;
+      border-top-left-radius: 6px;
+      border-bottom-left-radius: 6px;
+      padding: 5px;
+      background: linear-gradient(#1ad04d, #18a8dc);
+      margin-right: 5px;
+    }
+    #User_XP{
+      position: absolute;
+      top: 40px;
+      right: 120px;
+      border: 2px solid #81d4fa;
+      border-top-left-radius: 6px;
+      border-bottom-left-radius: 6px;
+      border-top-right-radius: 6px;
+      border-bottom-right-radius: 6px;
+      background-color: #fff;
+      border-left: none;
+      padding: 5px;
+      padding-left: 0;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="user_details">
+    <span id="User_name"></span>
+    <span id="User_XP"></span>
+  </div>
+  <div id="profile_pic" onclick="window.location.href=`dashboard.html`">
+    <img src="Images/ProfilePhoto.jpg" id="profile_pic">
+  </div>
+
+  <h1>Select an Option</h1>
+  <div class="options">
+    <div class="option-btn" onclick="window.location.href=`library_${library_attachment}.html`">
+      <img src="Images/library.png" alt="Library Icon">
+      Library
+    </div>
+    <div class="option-btn" onclick="window.location.href='games.html'">
+      <img src="Images/games.png" alt="Games Icon">
+      Games
+    </div>
+    <div class="option-btn" onclick="window.location.href=`Lessons/Basic${user.className}/basic${user.className}lesson.html`">
+      <img src="Images/lesson.png" alt="Lesson Icon">
+      Lesson
+    </div>
+  </div>
+</body>
+<script>
+  const user = JSON.parse(localStorage.getItem("currentUser"));
+  const profile_pic = document.getElementById("profile_pic");
+  const User_XP = document.getElementById("User_XP")
+  const User_name = document.getElementById("User_name")
+
+  if (!user) {
+    dash.innerHTML = "<h1>No user selected</h1>";
+  } else {
+    profile_pic.innerHTML = `<img src="${user.profilePic || 'Images/ProfilePhoto.jpg'}" id="profilePic">`
+    User_name.innerHTML = `${user.name}`
+    User_XP.innerHTML = `${user.xp}`
+    /*
+    dash.innerHTML = `
+      <h1>${user.name}</h1>
+      <p>Class: ${user.className}</p>
+      <p>School: ${user.school}</p>
+      <p>Email: ${user.email}</p>
+      <p>Bio: ${user.bio}</p>
+    `;*/
+    if(user.className <= 3){
+      library_attachment = "lo"
+    }
+    else if(user.className > 3 && user.className <= 6){
+      library_attachment = "up"
+    }
+    else{
+      library_attachment = "jhs"
+    }
+  }
+</script>
+
+</html>

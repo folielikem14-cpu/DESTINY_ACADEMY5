@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Home | Destiny Academy</title>
+<style>
+  body {
+    background: #000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+
+  svg {
+    width: 90%;
+    max-width: 1000px;
+  }
+
+  text {
+    font-family: 'Poppins', sans-serif;
+    font-size: 6vmin;
+    fill: #e0f0ff;
+    fill-opacity: 0;
+    stroke: #e0f0ff;
+    stroke-width: 1.5;
+    stroke-dasharray: 1000;
+    stroke-dashoffset: 1000;
+    animation: draw 4.5s ease forwards, fadeIn 1s ease 4.5s forwards;
+    filter: drop-shadow(0 0 10px #8fcfff);
+    text-anchor: middle;
+  }
+
+  /* Optional underline */
+  line {
+    stroke: #8fcfff;
+    stroke-width: 2;
+    stroke-dasharray: 400;
+    stroke-dashoffset: 400;
+    animation: drawLine 1.5s ease 4.5s forwards;
+  }
+
+  @keyframes draw {
+    to { stroke-dashoffset: 0; }
+  }
+
+  @keyframes fadeIn {
+    to { fill-opacity: 1; }
+  }
+
+  @keyframes drawLine {
+    to { stroke-dashoffset: 0; }
+  }
+</style>
+</head>
+<body>
+  <svg viewBox="0 0 1200 200">
+    <text x="50%" y="50%">
+      Welcome to Destiny Academy
+    </text>
+    <line x1="200" y1="140" x2="1000" y2="140" />
+  </svg>
+
+  <script>
+    // Redirect to home.html after 5 seconds
+    setTimeout(() => {
+      document.body.style.transition = "opacity 0.8s ease";
+      document.body.style.opacity = "0";
+      setTimeout(() => window.location.href = "profile.html", 800);
+    }, 5000);
+  </script>
+</body>
+</html>
