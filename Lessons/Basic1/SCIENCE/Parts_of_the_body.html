@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Materials in Our Environment | Destiny Academy</title>
+    <style>
+        body { font-family: 'Poppins', sans-serif; background: #f0f4f8; margin: 0; padding: 2rem; }
+        .content { max-width: 900px; margin: 0 auto; background: white; padding: 2rem; border-radius: 15px; box-shadow: 0 0 20px rgba(0,0,0,0.1); }
+        #next { background: #3c02b8; color: white; padding: 15px 30px; font-size: 1.3rem; border: none; border-radius: 12px; cursor: pointer; display: block; margin: 20px auto; }
+        img { max-width: 100%; border-radius: 15px; margin: 15px 0; }
+    </style>
+</head>
+<body>
+
+<div class="content">
+    <h1>Materials in Our Environment - Test Version</h1>
+    <p><strong>Current Slide:</strong> <span id="slideNum">1</span>/3</p>
+    
+    <div id="app">
+        <h2>Slide 1: Welcome</h2>
+        <p>This is a test lesson to check if XP saving works.</p>
+        <img src="https://via.placeholder.com/600x300?text=Materials+Lesson" alt="placeholder">
+    </div>
+
+    <button id="next">Next →</button>
+</div>
+
+<script>
+// ==================== XP DEBUG VERSION ====================
+
+let currentSlide = 0;
+const totalSlides = 3;
+
+const app = document.getElementById("app");
+const nextBtn = document.getElementById("next");
+const slideNum = document.getElementById("slideNum");
+
+function updateSlide() {
+    slideNum.textContent = currentSlide + 1;
+    
+    if (currentSlide === 0) {
+        app.innerHTML = `<h2>Slide 1: Welcome</h2><p>This is a test to check XP saving.</p>`;
+    } else if (currentSlide === 1) {
+        app.innerHTML = `<h2>Slide 2: Learning</h2><p>Materials can be solid, liquid or gas.</p>`;
+    } else if (currentSlide === 2) {
+        app.innerHTML = `<h2>Slide 3: Final</h2><p>Click Next to finish and earn 20 XP.</p>`;
+    }
+}
+
+function awardLessonXP() {
+    try {
+        let current = JSON.parse(localStorage.getItem("currentUser"));
+        if (!current) {
+            alert("No user logged in.");
+            return;
+        }
+
+        if (typeof current.xp !== "number") current.xp = 0;
+        current.xp += 20;
+
+        // Update currentUser
+        localStorage.setItem("currentUser", JSON.stringify(current));
+
+        // Also update the main users list (this prevents reset on re-select)
+        let allUsers = JSON.parse(localStorage.getItem("users")) || [];
+        const idx = allUsers.findIndex(u => u.name === current.name && u.email === current.email);
+        if (idx !== -1) {
+            allUsers[idx] = current;
+            localStorage.setItem("users", JSON.stringify(allUsers));
+        }
+
+        alert(`🎉 Lesson Complete!\n+20 XP earned!\nNew XP: ${current.xp}`);
+
+        setTimeout(() => window.location.href = "select.html", 1500);
+
+    } catch (e) {
+        console.error(e);
+        alert("Failed to save XP.");
+    }
+}
+nextBtn.addEventListener("click", () => {
+    if (currentSlide < totalSlides - 1) {
+        currentSlide++;
+        updateSlide();
+    } else {
+        awardLessonXP();        // This is where XP should be awarded
+    }
+});
+
+// Start
+updateSlide();
+console.log("Lesson loaded. Current user:", localStorage.getItem("currentUser"));
+</script>
+
+</body>
+</html>

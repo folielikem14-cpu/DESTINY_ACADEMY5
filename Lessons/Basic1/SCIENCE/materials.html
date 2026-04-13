@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Materials in Our Environment | Destiny Academy</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: #f0f4f8;
+            color: #001024;
+            margin: 0;
+            padding: 2rem;
+            line-height: 1.6;
+        }
+
+        header {
+            font-size: 2.8rem;
+            margin-bottom: 2rem;
+            text-shadow: 0 0 8px #64b5f6;
+            text-align: center;
+            color: #001024;
+        }
+
+        .content {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.95);
+            border-left: 6px solid #00ffcc;
+            padding: 2.5rem;
+            border-radius: 1.5rem;
+            box-shadow: 0 0 25px rgba(0, 150, 255, 0.25);
+        }
+
+        h1 {
+            font-size: 2rem;
+            margin: 1.5rem 0 1rem 0;
+            color: #001024;
+            text-shadow: 0 0 4px #64b5f6;
+        }
+
+        h3 {
+            font-size: 2rem;
+            color: #3c02b8;
+        }
+
+        #notes {
+            font-size: 1.3rem;
+            color: #000;
+            margin-bottom: 1rem;
+        }
+
+        #words {
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: #3c02b8;
+            background: #f0f0f0;
+            padding: 1.5rem;
+            border-radius: 12px;
+            line-height: 1.8;
+        }
+
+        p {
+            font-size: 1.4rem;
+            color: #001024;
+        }
+
+        strong, em, b {
+            color: #3c02b8;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            margin: 1.5rem auto 2rem auto;
+            display: block;
+            border-radius: 20px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        /* Next button */
+        #next {
+            background-color: #3c02b8;
+            color: #fff;
+            width: 220px;
+            height: 55px;
+            border-radius: 12px;
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin: 2rem auto;
+            display: block;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 6px 15px rgba(60, 2, 184, 0.4);
+            transition: all 0.3s ease;
+        }
+
+        #next:hover {
+            background-color: #5a1ee0;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(60, 2, 184, 0.5);
+        }
+
+        #next:disabled {
+            background-color: #aaa;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        /* Progress Bar */
+        .progress-container {
+            height: 14px;
+            background: #e0e0e0;
+            border-radius: 9999px;
+            overflow: hidden;
+            margin: 1.2rem 0 2rem 0;
+            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, #3c02b8, #00ffcc);
+            width: 0%;
+            transition: width 0.4s ease;
+            border-radius: 9999px;
+            box-shadow: 0 0 10px #00ffcc;
+        }
+
+        .progress-text {
+            text-align: center;
+            font-size: 1.1rem;
+            color: #3c02b8;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Quiz styling */
+        .quiz-question {
+            font-size: 1.6rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            color: #001024;
+            text-align: center;
+        }
+
+        .quiz-options {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .option {
+            padding: 1.2rem 1.5rem;
+            background: #f8f9ff;
+            border: 3px solid #ddd;
+            border-radius: 16px;
+            font-size: 1.3rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+
+        .option:hover {
+            border-color: #3c02b8;
+            background: #f0f4ff;
+        }
+
+        .option.selected {
+            border-color: #3c02b8;
+            background: #f0f4ff;
+        }
+
+        .option.correct {
+            border-color: #00cc88;
+            background: #e6fff0;
+        }
+
+        .option.wrong {
+            border-color: #ff5555;
+            background: #ffe6e6;
+        }
+
+        #quiz-feedback {
+            margin-top: 1.5rem;
+            padding: 1rem;
+            border-radius: 12px;
+            font-size: 1.3rem;
+            display: none;
+            text-align: center;
+        }
+
+        .feedback-correct {
+            background: #e6fff0;
+            color: #00cc88;
+            border: 2px solid #00cc88;
+        }
+
+        .feedback-wrong {
+            background: #ffe6e6;
+            color: #ff5555;
+            border: 2px solid #ff5555;
+        }
+
+        .submit-quiz-btn {
+            background: #00cc88;
+            color: white;
+            padding: 14px 32px;
+            font-size: 1.3rem;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            margin: 0 auto;
+            display: block;
+        }
+        
+        img{
+            width: 400px;
+            height: 550px;
+        }
+        #progress-text{
+            color: #fff;
+        }
+        
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Materials in Our Environment</h1>
+    </header>
+
+    <div class="content">
+        <!-- Progress Bar -->
+        <div class="progress-text" id="progress-text">Slide 1 of 14</div>
+        <div class="progress-container">
+            <div class="progress-bar" id="progress-bar"></div>
+        </div>
+
+        <div id="app"></div>
+        <button id="next">Next →</button>
+    </div>
+
+<script>
+    const app = document.getElementById("app");
+    const nextBtn = document.getElementById("next");
+    const progressBar = document.getElementById("progress-bar");
+    const progressText = document.getElementById("progress-text");
+
+    let currentContentIndex = 0;
+    let currentQuizAnswered = false;
+
+    function scrollToTop() {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    }
+
+    const contents = [
+        // 1 Keywords
+        {
+            type: "text",
+            content: `<h3>Key Words</h3>
+                <p id="notes">Please copy these words into your notebook</p>
+                <p id="words">
+                    materials, solid, liquid, gas, mixture, texture, hard, soft, rough, smooth
+                </p>`
+        },
+
+        // 2 Introduction - Materials Around Us
+        {
+            type: "text",
+            content: `<h1>Materials in Our Environment</h1>
+                <p>
+                    We use many different materials every day!<br><br>
+                    Look around your classroom and home.<br><br>
+                    Some materials are made of <strong>wood</strong>, <strong>plastic</strong>, <strong>cloth</strong>, or <strong>glass</strong>.<br><br>
+                    Today we will learn about them!
+                </p>
+                <img src="Images/materials-in-environment.jpg" alt="Everyday materials in Ghana - wooden spoon, kente cloth, plastic bottle, glass of water">`
+        },
+
+        // 3 What are Materials?
+        {
+            type: "text",
+            content: `<h1>What are Materials?</h1>
+                <p>
+                    Materials are the things things are made from.<br><br>
+                    Examples:<br>
+                    • Your uniform is made of cloth<br>
+                    • Your desk is made of wood<br>
+                    • Your water bottle is made of plastic<br><br>
+                    Can you name more materials around you?
+                </p>
+                <img src="Images/materials-in-environment.jpg" alt="Common Ghanaian materials">`
+        },
+
+        // 4 Quiz 1
+        {
+            type: "quiz",
+            question: "Which of these is a material?",
+            options: [
+                "A) Playing",
+                "B) Wood",
+                "C) Running",
+                "D) Singing"
+            ],
+            correct: 1,
+            explanation: "✅ Wood is a material! We use it to make tables, chairs and spoons."
+        },
+
+        // 5 States of Matter - Solid, Liquid, Gas
+        {
+            type: "text",
+            content: `<h1>Solid, Liquid and Gas</h1>
+                <p>
+                    Materials can be grouped into three main types:<br><br>
+                    <strong>Solid</strong> – keeps its shape (book, stone, pencil)<br>
+                    <strong>Liquid</strong> – can be poured (water, palm oil, juice)<br>
+                    <strong>Gas</strong> – we cannot see it easily (air)
+                </p>
+                <img src="Images/solid-liquid-gas.jpg" alt="Solid, Liquid and Gas chart for kids">`
+        },
+
+        // 6 Quiz 2
+        {
+            type: "quiz",
+            question: "Water is an example of a...",
+            options: [
+                "A) Solid",
+                "B) Liquid",
+                "C) Gas",
+                "D) Mixture"
+            ],
+            correct: 1,
+            explanation: "✅ Water is a liquid. It can flow and be poured!"
+        },
+
+        // 7 Grouping Materials by Properties
+        {
+            type: "text",
+            content: `<h1>Grouping Materials</h1>
+                <p>
+                    We can group materials by how they look and feel:<br><br>
+                    • Hard or Soft<br>
+                    • Rough or Smooth<br>
+                    • Big or Small<br>
+                    • Colour<br><br>
+                    This is called describing their <strong>texture</strong> and <strong>appearance</strong>.
+                </p>
+                <img src="Images/grouping-materials-activity.jpg" alt="Children sorting materials by hard soft big small">`
+        },
+
+        // 8 Quiz 3
+        {
+            type: "quiz",
+            question: "A stone is usually...",
+            options: [
+                "A) Soft",
+                "B) Hard",
+                "C) Liquid",
+                "D) Gas"
+            ],
+            correct: 1,
+            explanation: "✅ A stone is hard. It keeps its shape and does not bend easily."
+        },
+
+        // 9 What is a Mixture?
+        {
+            type: "text",
+            content: `<h1>What is a Mixture?</h1>
+                <p>
+                    A mixture is when we put two or more materials together.<br><br>
+                    Example: Mixing rice and beans, or sand and stones.<br><br>
+                    The materials do not change into something new – they are just together.
+                </p>
+                <img src="Images/mixture-rice-beans.jpg" alt="Before and after mixing rice and beans">`
+        },
+
+        // 10 Quiz 4
+        {
+            type: "quiz",
+            question: "When you mix rice and beans, it is called a...",
+            options: [
+                "A) Solid",
+                "B) Liquid",
+                "C) Mixture",
+                "D) Gas"
+            ],
+            correct: 2,
+            explanation: "✅ Correct! Mixing rice and beans makes a mixture."
+        },
+
+        // 11 Think About It!
+        {
+            type: "text",
+            content: `<h1>Think About It!</h1>
+                <p>
+                    1. Is your pencil a solid, liquid, or gas? Why?<br><br>
+                    2. What happens when you mix rice and beans?
+                </p>
+                <img src="Images/think-about-it-materials.jpg" alt="Child thinking about materials">`
+        },
+
+        // 12 Activity Time
+        {
+            type: "text",
+            content: `<h1>Activity Time! 🎨</h1>
+                <p>
+                    Go around your classroom with your teacher.<br><br>
+                    Collect 5 different materials (paper, stone, water in a cup, cloth, pencil).<br><br>
+                    Sort them into groups: hard/soft or big/small.<br><br>
+                    Tell your friend why you put each one in that group.
+                </p>
+                <img src="Images/classroom-sorting-activity.jpg" alt="Ghanaian children sorting materials in classroom">`
+        },
+
+        // 13 Our Environment & Care
+        {
+            type: "text",
+            content: `<h1>Caring for Materials</h1>
+                <p>
+                    We must take care of the materials we use.<br><br>
+                    Do not waste water.<br>
+                    Keep your books clean.<br>
+                    This shows discipline and responsibility!
+                </p>
+                <img src="Images/classroom-sorting-activity.jpg" alt="Children caring for materials">`
+        },
+
+        // 14 Video (Optional - add your video later)
+        {
+            type: "text",
+            content: `<h1>Well Done!</h1>
+                <p style="text-align:center; font-size:1.6rem;">
+                    You have learned about materials, solids, liquids, gases and mixtures.<br><br>
+                    Great job, Destiny Academy stars! 🌟
+                </p>`
+        },
+
+        // Final Screen
+        {
+            type: "end",
+            content: `<h1 style="text-align:center; color:#00cc88; font-size:2.8rem;">🎉 Lesson Complete!</h1>
+                <p style="text-align:center; font-size:1.7rem; margin-top:1rem;">You did it! You are now know what Materials are!</p>
+                <p style="text-align:center; font-size:1.4rem;">Great job! You earned 20XPs </p>`
+        }
+    ];
+
+    const totalSlides = contents.length - 1;
+
+    function updateProgress() {
+        const progressPercent = Math.min(((currentContentIndex) / totalSlides) * 100, 100);
+        progressBar.style.width = `${progressPercent}%`;
+        progressText.textContent = `Slide ${Math.min(currentContentIndex + 1, totalSlides)} of ${totalSlides}`;
+    }
+
+    function renderCurrentSlide() {
+        currentQuizAnswered = false;
+        nextBtn.disabled = false;
+
+        const slide = contents[currentContentIndex];
+
+        if (slide.type === "text" || slide.type === "end") {
+            app.innerHTML = slide.content;
+        } 
+        else if (slide.type === "quiz") {
+            nextBtn.disabled = true;
+            let optionsHTML = '';
+            slide.options.forEach((opt, i) => {
+                optionsHTML += `
+                    <div class="option" data-index="${i}">
+                        ${opt}
+                    </div>`;
+            });
+
+            app.innerHTML = `
+                <h1 style="text-align:center; color:#3c02b8;">🧪 Quiz Time!</h1>
+                <p class="quiz-question">${slide.question}</p>
+                <div class="quiz-options">${optionsHTML}</div>
+                <button class="submit-quiz-btn" id="submit-quiz">Submit Answer</button>
+                <div id="quiz-feedback"></div>
+            `;
+
+            const optionElements = app.querySelectorAll('.option');
+            optionElements.forEach(opt => {
+                opt.addEventListener('click', () => {
+                    if (currentQuizAnswered) return;
+                    optionElements.forEach(o => o.classList.remove('selected'));
+                    opt.classList.add('selected');
+                });
+            });
+
+            const submitBtn = document.getElementById('submit-quiz');
+            const feedbackDiv = document.getElementById('quiz-feedback');
+
+            submitBtn.addEventListener('click', () => {
+                const selected = app.querySelector('.option.selected');
+                if (!selected) {
+                    alert("Please choose one answer first! 🌟");
+                    return;
+                }
+
+                currentQuizAnswered = true;
+                const selectedIndex = parseInt(selected.getAttribute('data-index'));
+                const isCorrect = selectedIndex === slide.correct;
+
+                optionElements.forEach((opt, i) => {
+                    opt.style.pointerEvents = 'none';
+                    if (i === slide.correct) {
+                        opt.classList.add('correct');
+                    } else if (i === selectedIndex && !isCorrect) {
+                        opt.classList.add('wrong');
+                    }
+                });
+
+                feedbackDiv.className = isCorrect ? 'feedback-correct show' : 'feedback-wrong show';
+                feedbackDiv.innerHTML = slide.explanation;
+
+                submitBtn.style.display = 'none';
+                nextBtn.disabled = false;
+            });
+        }
+    }
+
+
+function nextSlide() {
+    if (currentContentIndex < contents.length - 1) {
+        currentContentIndex++;
+        renderCurrentSlide();
+        updateProgress();
+        scrollToTop();
+    } else {
+        awardLessonXP();
+    }
+}
+
+function awardLessonXP() {
+    try {
+        const userData = localStorage.getItem("currentUser");
+        
+        if (!userData) {
+            alert("⚠️ No user logged in. Please log in to save progress.");
+            return;
+        }
+
+        let user = JSON.parse(userData);
+        
+        // Initialize xp if it doesn't exist
+        if (typeof user.xp !== "number") {
+            user.xp = 20;
+        }
+
+        const xpEarned = 20;
+        user.xp += xpEarned;
+
+        // Save updated user
+        localStorage.setItem("currentUser", JSON.stringify(user));
+        window.location.href = ("science.html")
+
+    } catch (e) {
+        console.error(e);
+        alert("Failed to save XP. Please check if you're logged in.");
+    }
+}
+
+    function startApp() {
+        renderCurrentSlide();
+        updateProgress();
+        nextBtn.addEventListener("click", ()=>{
+            scrollToTop();
+            nextSlide()
+        });
+    }
+
+    startApp();
+</script>
+</body>
+</html>

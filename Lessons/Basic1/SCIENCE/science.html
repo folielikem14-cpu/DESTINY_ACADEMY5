@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Basic 1 Science | Destiny Academy</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    a {
+      text-decoration: none;
+      color: #001024;
+    }
+
+    a:hover {
+      color: #0066ff;
+      text-decoration: underline;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: #f0f4f8;
+      color: #001024;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 2rem;
+    }
+
+    header {
+      margin-bottom: 2rem;
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      text-shadow: 0 0 5px #64b5f6;
+      margin-bottom: 0.5rem;
+    }
+
+    .back-btn {
+      margin-bottom: 2rem;
+      color: #001024;
+      font-weight: 600;
+      transition: 0.3s;
+      display: inline-block;
+    }
+
+    .back-btn:hover {
+      color: #0066ff;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 2rem;
+      width: 100%;
+      max-width: 1200px;
+    }
+
+    .lesson-card {
+      background: #ffffff;
+      border: 2px solid #64b5f6;
+      border-radius: 20px;
+      padding: 2rem;
+      box-shadow: 0 0 15px rgba(100, 181, 246, 0.3);
+      transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      opacity: 0;
+      animation: fadeIn 0.8s forwards;
+    }
+
+    .lesson-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 0 30px #64b5f6, 0 0 40px #81d4fa;
+      border-color: #64b5f6;
+    }
+
+    a:hover {
+      text-decoration: none;
+    }
+
+    .grid a {
+      font-weight: 300;
+      font-size: 20px;
+    }
+
+    .grid span {
+      font-size: 30px;
+      color: #0066ff;
+    }
+
+    .disabled {
+      background-color: #c5c0c079;
+      transform: none;
+    }
+
+    .disabled a:hover {
+      color: #000;
+    }
+
+    @keyframes fadeIn {
+      to {
+        opacity: 1;
+      }
+    }
+
+    /* staggered animations */
+    .lesson-card:nth-child(1) {
+      animation-delay: 0.2s;
+    }
+
+    .lesson-card:nth-child(2) {
+      animation-delay: 0.4s;
+    }
+
+    .lesson-card:nth-child(3) {
+      animation-delay: 0.6s;
+    }
+
+    .lesson-card:nth-child(4) {
+      animation-delay: 0.8s;
+    }
+
+    .lesson-card:nth-child(5) {
+      animation-delay: 1.0s;
+    }
+
+    .lesson-card:nth-child(6) {
+      animation-delay: 1.2s;
+    }
+
+    .lesson-card:nth-child(7) {
+      animation-delay: 1.4s;
+    }
+
+    .lesson-card:nth-child(8) {
+      animation-delay: 1.6s;
+    }
+
+    .lesson-card:nth-child(9) {
+      animation-delay: 1.8s;
+    }
+
+    .lesson-card:nth-child(10) {
+      animation-delay: 2.0s;
+    }
+
+    #User_name::before {
+      content: "NAME";
+      width: 50px;
+      height: 30px;
+      border: 2px solid #81d4fa;
+      border-top-left-radius: 6px;
+      border-bottom-left-radius: 6px;
+      padding: 5px;
+      background: linear-gradient(#1ad04d, #18a8dc);
+      margin-right: 5px;
+    }
+
+    #User_name {
+      position: absolute;
+      top: 40px;
+      left: 30px;
+      border: 2px solid #81d4fa;
+      border-top-left-radius: 6px;
+      border-bottom-left-radius: 6px;
+      border-top-right-radius: 6px;
+      border-bottom-right-radius: 6px;
+      background-color: #fff;
+      border-left: none;
+      padding: 5px;
+      padding-left: 0;
+    }
+
+    #User_XP::before {
+      content: "XP";
+      padding-right: 100px;
+      height: 30px;
+      border: 2px solid #81d4fa;
+      border-top-left-radius: 6px;
+      border-bottom-left-radius: 6px;
+      padding: 5px;
+      background: linear-gradient(#1ad04d, #18a8dc);
+      margin-right: 5px;
+    }
+
+    #User_XP {
+      position: absolute;
+      top: 40px;
+      right: 120px;
+      border: 2px solid #81d4fa;
+      border-top-left-radius: 6px;
+      border-bottom-left-radius: 6px;
+      border-top-right-radius: 6px;
+      border-bottom-right-radius: 6px;
+      background-color: #fff;
+      border-left: none;
+      padding: 5px;
+      padding-left: 0;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="user_details">
+    <span id="User_name"></span>
+    <span id="User_XP"></span>
+  </div>
+
+  <header>
+    <h1>Basic 1 Science</h1>
+    <a href="../basic1lesson.html" class="back-btn">← Back to Lesson Menu</a>
+  </header>
+
+  <div class="grid">
+    <div class="lesson-card" onclick="window.location.href = (`living_and_non-living_things.html`)"><span
+        class="lesson_no">1</span><a>Living and Non-Living things</a></div>
+  </div>
+</body>
+<script>
+  const user = JSON.parse(localStorage.getItem("currentUser"));
+  const profile_pic = document.getElementById("profile_pic");
+  const User_XP = document.getElementById("User_XP")
+  const User_name = document.getElementById("User_name")
+
+  if (!user) {
+    dash.innerHTML = "<h1>No user selected</h1>";
+  } else {
+    User_name.innerHTML = `${user.name}`
+    User_XP.innerHTML = `${user.xp}`
+  }
+</script>
+
+</html>

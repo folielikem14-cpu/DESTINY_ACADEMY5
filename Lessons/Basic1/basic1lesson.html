@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Basic 1 | Destiny Academy</title>
+  <style>
+    /* Basic Reset */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    a {
+      text-decoration: none;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: #f0f4f8;
+      /* much lighter background */
+      color: #001024;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 2rem;
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      margin-bottom: 2.5rem;
+      text-align: center;
+      text-shadow: 0 0 5px #64b5f6;
+      color: #001024;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      /* 3x3 grid */
+      gap: 2rem;
+      width: 100%;
+      max-width: 1200px;
+    }
+
+    .card {
+      background: #ffffff;
+      /* lighter card to contrast with neon glow */
+      border: 2px solid #64b5f6;
+      border-radius: 20px;
+      padding: 3rem 2rem;
+      text-align: center;
+      font-size: 1.5rem;
+      cursor: pointer;
+      transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
+      box-shadow: 0 0 15px rgba(100, 181, 246, 0.3);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      opacity: 0;
+      animation: fadeIn 0.8s forwards;
+    }
+
+    .card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 0 30px #64b5f6, 0 0 40px #81d4fa;
+      border-color: #64b5f6;
+    }
+
+    .card img {
+      width: 50px;
+      height: 50px;
+      margin-bottom: 15px;
+    }
+
+    /* Fade-in animation */
+    @keyframes fadeIn {
+      to {
+        opacity: 1;
+      }
+    }
+
+    /* Staggered animation delays */
+    .card:nth-child(1) {
+      animation-delay: 0.2s;
+    }
+
+    .card:nth-child(2) {
+      animation-delay: 0.4s;
+    }
+
+    .card:nth-child(3) {
+      animation-delay: 0.6s;
+    }
+
+    .card:nth-child(4) {
+      animation-delay: 0.8s;
+    }
+
+    .card:nth-child(5) {
+      animation-delay: 1s;
+    }
+
+    .card:nth-child(6) {
+      animation-delay: 1.2s;
+    }
+
+    @media (max-width: 900px) {
+      .grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 600px) {
+      .grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    #User_name::before {
+      content: "NAME";
+      width: 50px;
+      height: 30px;
+      border: 2px solid #81d4fa;
+      border-top-left-radius: 6px;
+      border-bottom-left-radius: 6px;
+      padding: 5px;
+      background: linear-gradient(#1ad04d, #18a8dc);
+      margin-right: 5px;
+    }
+
+    #User_name {
+      position: absolute;
+      top: 40px;
+      left: 30px;
+      border: 2px solid #81d4fa;
+      border-top-left-radius: 6px;
+      border-bottom-left-radius: 6px;
+      border-top-right-radius: 6px;
+      border-bottom-right-radius: 6px;
+      background-color: #fff;
+      border-left: none;
+      padding: 5px;
+      padding-left: 0;
+    }
+
+    #User_XP::before {
+      content: "XP";
+      padding-right: 100px;
+      height: 30px;
+      border: 2px solid #81d4fa;
+      border-top-left-radius: 6px;
+      border-bottom-left-radius: 6px;
+      padding: 5px;
+      background: linear-gradient(#1ad04d, #18a8dc);
+      margin-right: 5px;
+    }
+
+    #User_XP {
+      position: absolute;
+      top: 40px;
+      right: 120px;
+      border: 2px solid #81d4fa;
+      border-top-left-radius: 6px;
+      border-bottom-left-radius: 6px;
+      border-top-right-radius: 6px;
+      border-bottom-right-radius: 6px;
+      background-color: #fff;
+      border-left: none;
+      padding: 5px;
+      padding-left: 0;
+    }
+            .back-btn {
+      margin-bottom: 2rem;
+      color: #000;
+      font-weight: 600;
+      transition: 0.3s;
+      display: block;
+      text-align: center;
+    }
+    .back-btn:hover {
+      color: #0066ff;
+    }
+
+        a {
+      text-decoration: none;
+      color: #000;
+    }
+
+    a:hover {
+      color: #0066ff;
+      text-decoration: underline;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="user_details">
+    <span id="User_name"></span>
+    <span id="User_XP"></span>
+  </div>
+  <h1>BASIC ONE</h1>
+  <h1>What would you like to learn?</h1>
+      <a href="../../select.html" class="back-btn">← Back to Menu</a>
+
+
+<div class="grid">
+    <a href="math.html" class="card">
+      <img src="math.png" alt="Mathematics">
+      Mathematics
+    </a>
+    <a href="eng.html" class="card">
+      <img src="english.png" alt="English">
+      English
+    </a>
+    <a href="history.html" class="card">
+      <img src="history.png" alt="History">
+      History
+    </a>
+    <a href="SCIENCE/science.html" class="card">
+      <img src="science.png" alt="Science">
+      Science
+    </a>
+    <a href="art.html" class="card">
+      <img src="rme.png" alt="RME">
+      RME
+    </a>
+    <a href="ict.html" class="card">
+      <img src="ict.png" alt="ICT">
+      ICT
+    </a>
+  </div>
+</body>
+<script>
+  const user = JSON.parse(localStorage.getItem("currentUser"));
+  const profile_pic = document.getElementById("profile_pic");
+  const User_XP = document.getElementById("User_XP")
+  const User_name = document.getElementById("User_name")
+
+  if (!user) {
+    dash.innerHTML = "<h1>No user selected</h1>";
+  } else {
+    User_name.innerHTML = `${user.name}`
+    User_XP.innerHTML = `${user.xp}`
+  }
+
+// If editing, load existing user data
+if (editMode && editIndex !== null) {
+  editIndex = parseInt(editIndex);
+  const user = users[editIndex];
+  document.getElementById('name').value = user.name;
+  document.getElementById('className').value = user.className;
+  document.getElementById('school').value = user.school;
+  document.getElementById('email').value = user.email;
+  document.getElementById('bio').value = user.bio;
+  if(user.profilePic){
+    preview.src = user.profilePic;
+    preview.style.display = 'block';
+  }
+  document.getElementById('formTitle').innerText = 'Edit User';
+}
+
+// Preview selected image
+profileInput.addEventListener("change", function() {
+  const file = profileInput.files[0];
+  if (file) {
+    const reader = new FileReader();
+    reader.onload = function() {
+      preview.src = reader.result;
+      preview.style.display = "block";
+    }
+    reader.readAsDataURL(file);
+  } else {
+    preview.style.display = "none";
+  }
+});
+
+function saveUser() {
+  const name = document.getElementById("name").value.trim();
+  const className = document.getElementById("className").value.trim();
+  const school = document.getElementById("school").value.trim();
+  const email = document.getElementById("email").value.trim();
+  const bio = document.getElementById("bio").value.trim();
+  let xp = 30
+
+  if(!name || !className || !email){
+    alert("Please fill out all required fields");
+    return;
+  }
+
+  // Function to finalize saving
+  function finalizeSave(profilePic) {
+    const userObj = {name, className, school, email, bio, profilePic, xp};
+
+    if(editMode && editIndex !== null){
+      users[editIndex] = userObj;
+      localStorage.removeItem('editUserIndex');
+    } else {
+      users.push(userObj);
+    }
+
+    localStorage.setItem("users", JSON.stringify(users));
+    alert("User saved!");
+    window.location.href = "profile.html";
+  }
+
+  // Handle profile pic upload
+  if(profileInput.files.length > 0){
+    const reader = new FileReader();
+    reader.onload = function() {
+      finalizeSave(reader.result);
+    }
+    reader.readAsDataURL(profileInput.files[0]);
+  } else {
+    // Keep old profile pic if editing, else null
+    let existingPic = (editMode && users[editIndex] && users[editIndex].profilePic) ? users[editIndex].profilePic : null;
+    finalizeSave(existingPic);
+  }
+}
+
+</script>
+
+</html>

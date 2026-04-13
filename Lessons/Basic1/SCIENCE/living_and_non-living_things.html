@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Living and Non-Living Things | Destiny Academy</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: #f0f4f8;
+            color: #001024;
+            margin: 0;
+            padding: 2rem;
+            line-height: 1.6;
+        }
+
+        header {
+            font-size: 2.8rem;
+            margin-bottom: 2rem;
+            text-shadow: 0 0 8px #64b5f6;
+            text-align: center;
+            color: #001024;
+        }
+
+        .content {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.95);
+            border-left: 6px solid #00ffcc;
+            padding: 2.5rem;
+            border-radius: 1.5rem;
+            box-shadow: 0 0 25px rgba(0, 150, 255, 0.25);
+        }
+
+        h1 {
+            font-size: 2rem;
+            margin: 1.5rem 0 1rem 0;
+            color: #001024;
+            text-shadow: 0 0 4px #64b5f6;
+        }
+
+        h3 {
+            font-size: 2rem;
+            color: #3c02b8;
+        }
+
+        #notes {
+            font-size: 1.3rem;
+            color: #000;
+            margin-bottom: 1rem;
+        }
+
+        #words {
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: #3c02b8;
+            background: #f0f0f0;
+            padding: 1.5rem;
+            border-radius: 12px;
+            line-height: 1.8;
+        }
+
+        p {
+            font-size: 1.4rem;
+            color: #001024;
+        }
+
+        strong, em, b {
+            color: #3c02b8;
+        }
+
+        img, video {
+            max-width: 100%;
+            height: auto;
+            margin: 1.5rem auto 2rem auto;
+            display: block;
+            border-radius: 20px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        /* Next button */
+        #next {
+            background-color: #3c02b8;
+            color: #fff;
+            width: 220px;
+            height: 55px;
+            border-radius: 12px;
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin: 2rem auto;
+            display: block;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 6px 15px rgba(60, 2, 184, 0.4);
+            transition: all 0.3s ease;
+        }
+
+        #next:hover {
+            background-color: #5a1ee0;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(60, 2, 184, 0.5);
+        }
+
+        #next:disabled {
+            background-color: #aaa;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        /* Beautiful Progress Bar */
+        .progress-container {
+            height: 14px;
+            background: #e0e0e0;
+            border-radius: 9999px;
+            overflow: hidden;
+            margin: 1.2rem 0 2rem 0;
+            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, #3c02b8, #00ffcc);
+            width: 0%;
+            transition: width 0.4s ease;
+            border-radius: 9999px;
+            box-shadow: 0 0 10px #00ffcc;
+        }
+
+        .progress-text {
+            text-align: center;
+            font-size: 1.1rem;
+            color: #3c02b8;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Quiz styling - super simple for 6 year olds */
+        .quiz-question {
+            font-size: 1.6rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            color: #001024;
+            text-align: center;
+        }
+
+        .quiz-options {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .option {
+            padding: 1.2rem 1.5rem;
+            background: #f8f9ff;
+            border: 3px solid #ddd;
+            border-radius: 16px;
+            font-size: 1.3rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+
+        .option:hover {
+            border-color: #3c02b8;
+            background: #f0f4ff;
+        }
+
+        .option.selected {
+            border-color: #3c02b8;
+            background: #f0f4ff;
+        }
+
+        .option.correct {
+            border-color: #00cc88;
+            background: #e6fff0;
+        }
+
+        .option.wrong {
+            border-color: #ff5555;
+            background: #ffe6e6;
+        }
+
+        #quiz-feedback {
+            margin-top: 1.5rem;
+            padding: 1rem;
+            border-radius: 12px;
+            font-size: 1.3rem;
+            display: none;
+            text-align: center;
+        }
+
+        #quiz-feedback.show {
+            display: block;
+        }
+
+        .feedback-correct {
+            background: #e6fff0;
+            color: #00cc88;
+            border: 2px solid #00cc88;
+        }
+
+        .feedback-wrong {
+            background: #ffe6e6;
+            color: #ff5555;
+            border: 2px solid #ff5555;
+        }
+
+        .submit-quiz-btn {
+            background: #00cc88;
+            color: white;
+            padding: 14px 32px;
+            font-size: 1.3rem;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            margin: 0 auto;
+            display: block;
+        }
+
+        img{
+            width: 400px;
+            height: 550px;
+        }
+        #progress-text{
+            color: #fff;
+        }
+        
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>Living and Non-Living Things</h1>
+    </header>
+
+    <div class="content">
+        <!-- Progress Bar -->
+        <div class="progress-text" id="progress-text">Slide 1 of 14</div>
+        <div class="progress-container">
+            <div class="progress-bar" id="progress-bar"></div>
+        </div>
+
+        <div id="app"></div>
+        <button id="next">Next →</button>
+    </div>
+
+<script>
+    const app = document.getElementById("app");
+    const nextBtn = document.getElementById("next");
+    const progressBar = document.getElementById("progress-bar");
+    const progressText = document.getElementById("progress-text");
+
+    let currentContentIndex = 0;
+    let currentQuizAnswered = false;
+
+    
+    function scrollToTop() {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    }
+
+    const contents = [
+        // 1 Keywords (no image - just words)
+        {
+            type: "text",
+            content: `<h3>Keywords</h3>
+                <p id="notes">Please do well to copy these words</p>
+                <p id="words">
+                    living things, non-living things, environment, needs, grow, move, reproduce
+                </p>`
+        },
+        // 2 Introduction - Things Around Us
+        {
+            type: "text",
+            content: `<h1>Things Around Us</h1>
+                <p>
+                    Look around you right now! What do you see?<br><br>
+                    There are many things in our environment.<br><br>
+                    Some things are <strong>living</strong>. Some things are <strong>non-living</strong>.<br><br>
+                    Living things are alive! Let's learn all about them!
+                </p>
+                <img src="Images/slide2.jpg" alt="Colourful Ghana village scene with living and non-living things labelled">`
+        },
+        // 3 Living Things + examples from Ghana
+        {
+            type: "text",
+            content: `<h1>Living Things</h1>
+                <p>
+                    Living things are alive!<br><br>
+                    They need food, water, and air every day.<br><br>
+                    They grow bigger, they move, and they can make new living things (babies or seeds).<br><br>
+                    Examples in Ghana: a dog that runs and barks, a mango tree that grows sweet fruits, a butterfly that flies, a goat that eats grass.
+                </p>
+                <img src="Images/slide3.jpg" alt="Happy dog, mango tree, butterfly and goat in Ghana">`
+        },
+        // 4 Quiz 1 (after Living Things)
+        {
+            type: "quiz",
+            question: "Which one is a living thing?",
+            options: [
+                "A) A stone",
+                "B) A book",
+                "C) A chair",
+                "D) A dog"
+            ],
+            correct: 3,
+            explanation: "🌟 A dog is living! It moves, needs food, grows and makes sounds."
+        },
+        // 5 Basic Needs
+        {
+            type: "text",
+            content: `<h1>Basic Needs of Living Things</h1>
+                <p>
+                    All living things need <strong>food</strong>, <strong>water</strong>, and <strong>air</strong> to stay alive and grow strong.<br><br>
+                    Without these, they cannot live happily.<br><br>
+                    You need them too!
+                </p>
+                <img src="Images/slide5.jpg" alt="Animals and plants happily getting food, water and air">`
+        },
+        // 6 Quiz 2 (after Needs)
+        {
+            type: "quiz",
+            question: "What do living things need every day?",
+            options: [
+                "A) Toys and games",
+                "B) Food, water, and air",
+                "C) A big house",
+                "D) New clothes"
+            ],
+            correct: 1,
+            explanation: "Food, water and air help them grow and stay healthy!"
+        },
+        // 7 Non-Living Things
+        {
+            type: "text",
+            content: `<h1>Non-Living Things</h1>
+                <p>
+                    Non-living things have never been alive.<br><br>
+                    They do not need food, water or air.<br><br>
+                    They do not grow or move by themselves.<br><br>
+                    Examples: a stone, a chair, a book, water (it helps living things but is not alive itself).
+                </p>
+                <img src="Images/slide7.jpg" alt="Stone, chair, book and water as non-living examples">`
+        },
+        // 8 Quiz 3 (after Non-Living)
+        {
+            type: "quiz",
+            question: "Is a mango tree living or non-living?",
+            options: [
+                "A) Non-living",
+                "B) Living",
+                "C) Sometimes living",
+                "D) Neither"
+            ],
+            correct: 1,
+            explanation: "A mango tree is living because it grows fruits and needs water and air."
+        },
+        // 9 Living vs Non-Living
+        {
+            type: "text",
+            content: `<h1>Living vs Non-Living</h1>
+                <p>
+                    <strong>Living things:</strong> grow, move, need food/water/air, reproduce.<br><br>
+                    <strong>Non-living things:</strong> do not grow, do not move by themselves, no needs.<br><br>
+                    Now you know the big difference!
+                </p>
+                <img src="Images/slide9.jpg" alt="Side-by-side pictures of living and non-living things">`
+        },
+        // 10 Think About It!
+        {
+            type: "text",
+            content: `<h1>Think About It!</h1>
+                <p>
+                    1. Is your school bag living or non-living? Why?<br><br>
+                    2. Name one living thing and one non-living thing near your house.
+                </p>
+                <img src="Images/slide10.jpg" alt="Happy children thinking about things around them">`
+        },
+        // 11 Activity
+        {
+            type: "text",
+            content: `<h1>Activity Time! 🎨</h1>
+                <p>
+                    Go outside with your teacher or family.<br><br>
+                    Point to 5 living things and 5 non-living things.<br><br>
+                    Draw them in your notebook and colour them!
+                </p>
+                <img src="Images/slide11.jpg" alt="Children drawing and colouring living and non-living things">`
+        },
+        // 12 Quiz 4 (after Activity)
+        {
+            type: "quiz",
+            question: "Which is a non-living thing?",
+            options: [
+                "A) Butterfly",
+                "B) Dog",
+                "C) Goat",
+                "D) Stone"
+            ],
+            correct: 3,
+            explanation: "A stone is non-living. It doesn’t need food or grow!"
+        },
+        // 13 Our Environment
+        {
+            type: "text",
+            content: `<h1>Our Environment</h1>
+                <p>
+                    The environment is everything around us.<br><br>
+                    We must take care of living things like plants and animals.
+                </p>
+                <img src="Images/slide13.jpg" alt="Ghanaian children caring for plants and animals">`
+        },
+        // 14 Video
+        {
+            type: "video",
+            content: `<h1>Watch the video</h1>
+                <video src="lessons/videos/living-and-non-living-things.mp4" height="400" width="700" controls></video>`
+        },
+        {
+            type: "quiz",
+            question: "What can living things not do?",
+            options: [
+                "A) move",
+                "B) vanish",
+                "C) eat",
+                "D) grow"
+            ],
+            correct: 1,
+            explanation: "Living things can not vanish"
+        },
+        // Final screen
+        {
+            type: "end",
+            content: `<h1 style="text-align:center; color:#00cc88; font-size:2.8rem;">🎉 Lesson Complete!</h1>
+                <p style="text-align:center; font-size:1.7rem; margin-top:1rem;">You did it! You are now know what Living and Non-Living Things are!</p>
+                <p style="text-align:center; font-size:1.4rem;">Great job! You earned 20XPs </p>`
+        }
+    ];
+
+    const totalSlides = contents.length - 1;
+    let Points = 5
+    
+    function updateProgress() {
+        const progressPercent = Math.min(((currentContentIndex) / totalSlides) * 100, 100);
+        progressBar.style.width = `${progressPercent}%`;
+        progressText.textContent = `Slide ${Math.min(currentContentIndex + 1, totalSlides)} of ${totalSlides}`;
+    }
+
+    function renderCurrentSlide() {
+        currentQuizAnswered = false;
+        nextBtn.disabled = false;
+
+        const slide = contents[currentContentIndex];
+
+        if (slide.type === "text" || slide.type === "video" || slide.type === "end") {
+            app.innerHTML = slide.content;
+        } 
+        else if (slide.type === "quiz") {
+            nextBtn.disabled = true
+            let optionsHTML = '';
+            slide.options.forEach((opt, i) => {
+                optionsHTML += `
+                    <div class="option" data-index="${i}">
+                        ${opt}
+                    </div>`;
+            });
+
+            app.innerHTML = `
+                <h1 style="text-align:center; color:#3c02b8;">🧪 Quiz Time!</h1>
+                <p class="quiz-question">${slide.question}</p>
+                <div class="quiz-options">${optionsHTML}</div>
+                <button class="submit-quiz-btn" id="submit-quiz">I’m ready! Submit</button>
+                <div id="quiz-feedback"></div>
+            `;
+
+            const optionElements = app.querySelectorAll('.option');
+            optionElements.forEach(opt => {
+                opt.addEventListener('click', () => {
+                    if (currentQuizAnswered) return;
+                    optionElements.forEach(o => o.classList.remove('selected'));
+                    opt.classList.add('selected');
+                });
+            });
+
+            const submitBtn = document.getElementById('submit-quiz');
+            const feedbackDiv = document.getElementById('quiz-feedback');
+
+            submitBtn.addEventListener('click', () => {
+                const selected = app.querySelector('.option.selected');
+                if (!selected) {
+                    alert("Pick one answer first! 🌟");
+                    return;
+                }
+
+                currentQuizAnswered = true;
+                const selectedIndex = parseInt(selected.getAttribute('data-index'));
+                const isCorrect = selectedIndex === slide.correct;
+
+                optionElements.forEach((opt, i) => {
+                    opt.style.pointerEvents = 'none';
+                    if (i === slide.correct){ 
+                        opt.classList.add('correct')
+                    }
+                    else if (i === selectedIndex && !isCorrect){ 
+                        opt.classList.add('wrong')
+                        Points--
+                    };
+                });
+
+                feedbackDiv.className = isCorrect ? 'feedback-correct show' : 'feedback-wrong show';
+                feedbackDiv.innerHTML = slide.explanation;
+
+                submitBtn.style.display = 'none';
+                nextBtn.disabled = false;
+            });
+        }
+    }
+
+function nextSlide() {
+    if (currentContentIndex < contents.length - 1) {
+        currentContentIndex++;
+        renderCurrentSlide();
+        updateProgress();
+        scrollToTop();
+    } else {
+        alert(Points)
+        awardLessonXP();
+    }
+}
+
+function awardLessonXP() {
+    try {
+        const userData = localStorage.getItem("currentUser");
+        
+        if (!userData) {
+            alert("⚠️ No user logged in. Please log in to save progress.");
+            return;
+        }
+
+        let user = JSON.parse(userData);
+        
+        // Initialize xp if it doesn't exist
+        if (typeof user.xp !== "number") {
+            user.xp = 30;
+        }
+
+        const xpEarned = Points*4;
+        user.xp += xpEarned;
+
+        // Save updated user
+        localStorage.setItem("currentUser", JSON.stringify(user));
+        window.location.href = "science.html"
+
+    } catch (e) {
+        console.error(e);
+        alert("Failed to save XP. Please check if you're logged in.");
+    }
+}
+
+
+    function startApp() {
+        renderCurrentSlide();
+        updateProgress();
+        nextBtn.addEventListener("click", ()=>{
+            scrollToTop();
+            nextSlide()
+        });
+    }
+
+    startApp();
+</script>
+
+</html>
