@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Living and Non-Living Things | Destiny Academy</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: #f0f4f8;
+            color: #001024;
+            margin: 0;
+            padding: 2rem;
+            line-height: 1.6;
+        }
+
+        header {
+            font-size: 2.8rem;
+            margin-bottom: 2rem;
+            text-shadow: 0 0 8px #64b5f6;
+            text-align: center;
+            color: #001024;
+        }
+
+        .content {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.95);
+            border-left: 6px solid #00ffcc;
+            padding: 2.5rem;
+            border-radius: 1.5rem;
+            box-shadow: 0 0 25px rgba(0, 150, 255, 0.25);
+        }
+
+        h1 {
+            font-size: 2rem;
+            margin: 1.5rem 0 1rem 0;
+            color: #001024;
+            text-shadow: 0 0 4px #64b5f6;
+        }
+
+        h3 {
+            font-size: 2rem;
+            color: #3c02b8;
+        }
+
+        #notes {
+            font-size: 1.3rem;
+            color: #000;
+            margin-bottom: 1rem;
+        }
+
+        #words {
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: #3c02b8;
+            background: #f0f0f0;
+            padding: 1.5rem;
+            border-radius: 12px;
+            line-height: 1.8;
+        }
+
+        p {
+            font-size: 1.4rem;
+            color: #001024;
+        }
+
+        strong, em, b {
+            color: #3c02b8;
+        }
+
+        img, video {
+            max-width: 100%;
+            height: auto;
+            margin: 1.5rem auto 2rem auto;
+            display: block;
+            border-radius: 20px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        /* Next button */
+        #next {
+            background-color: #3c02b8;
+            color: #fff;
+            width: 220px;
+            height: 55px;
+            border-radius: 12px;
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin: 2rem auto;
+            display: block;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 6px 15px rgba(60, 2, 184, 0.4);
+            transition: all 0.3s ease;
+        }
+
+        #next:hover {
+            background-color: #5a1ee0;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(60, 2, 184, 0.5);
+        }
+
+        #next:disabled {
+            background-color: #aaa;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        /* Beautiful Progress Bar */
+        .progress-container {
+            height: 14px;
+            background: #e0e0e0;
+            border-radius: 9999px;
+            overflow: hidden;
+            margin: 1.2rem 0 2rem 0;
+            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, #3c02b8, #00ffcc);
+            width: 0%;
+            transition: width 0.4s ease;
+            border-radius: 9999px;
+            box-shadow: 0 0 10px #00ffcc;
+        }
+
+        .progress-text {
+            text-align: center;
+            font-size: 1.1rem;
+            color: #3c02b8;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Quiz styling - super simple for 6 year olds */
+        .quiz-question {
+            font-size: 1.6rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            color: #001024;
+            text-align: center;
+        }
+
+        .quiz-options {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .option {
+            padding: 1.2rem 1.5rem;
+            background: #f8f9ff;
+            border: 3px solid #ddd;
+            border-radius: 16px;
+            font-size: 1.3rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+
+        .option:hover {
+            border-color: #3c02b8;
+            background: #f0f4ff;
+        }
+
+        .option.selected {
+            border-color: #3c02b8;
+            background: #f0f4ff;
+        }
+
+        .option.correct {
+            border-color: #00cc88;
+            background: #e6fff0;
+        }
+
+        .option.wrong {
+            border-color: #ff5555;
+            background: #ffe6e6;
+        }
+
+        #quiz-feedback {
+            margin-top: 1.5rem;
+            padding: 1rem;
+            border-radius: 12px;
+            font-size: 1.3rem;
+            display: none;
+            text-align: center;
+        }
+
+        #quiz-feedback.show {
+            display: block;
+        }
+
+        .feedback-correct {
+            background: #e6fff0;
+            color: #00cc88;
+            border: 2px solid #00cc88;
+        }
+
+        .feedback-wrong {
+            background: #ffe6e6;
+            color: #ff5555;
+            border: 2px solid #ff5555;
+        }
+
+        .submit-quiz-btn {
+            background: #00cc88;
+            color: white;
+            padding: 14px 32px;
+            font-size: 1.3rem;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            margin: 0 auto;
+            display: block;
+        }
+
+        img{
+            width: 400px;
+            height: 550px;
+        }
+        #progress-text{
+            color: #fff;
+        }
+        
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>Generations Of Computers</h1>
+    </header>
+
+    <div class="content">
+        <!-- Progress Bar -->
+        <div class="progress-text" id="progress-text">Slide 1 of 14</div>
+        <div class="progress-container">
+            <div class="progress-bar" id="progress-bar"></div>
+        </div>
+
+        <div id="app"></div>
+        <button id="next">Next →</button>
+    </div>
+
+<script>
+    const app = document.getElementById("app");
+    const nextBtn = document.getElementById("next");
+    const progressBar = document.getElementById("progress-bar");
+    const progressText = document.getElementById("progress-text");
+
+    let currentContentIndex = 0;
+    let currentQuizAnswered = false;
+
+    
+    function scrollToTop() {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    }
+
+const contents = [
+    // 1 Keywords (no image - just words)
+    {
+        type: "text",
+        content: `<h3>Keywords</h3>
+            <p id="notes">Please do well to copy these words</p>
+            <p id="words">
+                output, devices, softcopy, hardcopy, analogue, digital, mouse, home, generations, computers, monitor, printer, keyboard
+            </p>`
+    },
+
+    // 2 Introduction
+    {
+        type: "text",
+        content: `<h1>Generation of Computers and Technology Tools</h1>
+            <p>
+                Computers are very important in our world today.<br><br>
+                In this lesson, we will learn about the different generations of computers, output devices, analogue and digital devices, and how to use the mouse and keyboard.<br><br>
+                Let's begin our journey!
+            </p>
+            <img src="Images/slide2.jpg" alt="Modern computer and old computer comparison">`
+    },
+
+    // 3 Generations of Computers
+    {
+        type: "text",
+        content: `<h1>Generations of Computers</h1>
+            <p>
+                Computers have passed through five main generations.<br><br>
+                <strong>1st Generation:</strong> Very big computers using vacuum tubes.<br>
+                <strong>2nd Generation:</strong> Smaller, used transistors.<br>
+                <strong>3rd Generation:</strong> Used integrated circuits.<br>
+                <strong>4th Generation:</strong> Used microprocessors (personal computers we use today).<br>
+                <strong>5th Generation:</strong> Modern computers with Artificial Intelligence.<br><br>
+                Each new generation is smaller, faster and cheaper than the previous one.
+            </p>
+            <img src="Images/slide3.jpg" alt="Five generations of computers timeline">`
+    },
+
+    // 4 Quiz 1 (after Generations)
+    {
+        type: "quiz",
+        question: "Which generation of computers uses microprocessors?",
+        options: [
+            "A) 1st Generation",
+            "B) 2nd Generation",
+            "C) 3rd Generation",
+            "D) 4th Generation"
+        ],
+        correct: 3,
+        explanation: "🌟 The 4th Generation uses microprocessors. This is the generation of personal computers."
+    },
+
+    // 5 Output Devices
+    {
+        type: "text",
+        content: `<h1>Output Devices</h1>
+            <p>
+                Output devices are parts of the computer that give us information.<br><br>
+                There are two main types:<br>
+                <strong>Softcopy</strong> – Information we see on screen (e.g. monitor)<br>
+                <strong>Hardcopy</strong> – Information printed on paper (e.g. printer)
+            </p>
+            <img src="Images/slide5.jpg" alt="Computer monitor and printer as output devices">`
+    },
+
+    // 6 Types of Output Devices and Their Uses
+    {
+        type: "text",
+        content: `<h1>Types of Output Devices and Their Uses</h1>
+            <p>
+                • <strong>Monitor</strong> – Shows text, pictures and videos on screen<br>
+                • <strong>Printer</strong> – Prints documents and pictures on paper<br>
+                • <strong>Speakers</strong> – Produces sound and music<br>
+                • <strong>Projector</strong> – Shows large images on the wall or screen
+            </p>
+            <img src="Images/slide7.jpg" alt="Different output devices with their uses">`
+    },
+
+    // 7 Quiz 2 (after Output Devices)
+    {
+        type: "quiz",
+        question: "Which of these is an output device?",
+        options: [
+            "A) Keyboard",
+            "B) Mouse",
+            "C) Monitor",
+            "D) CPU"
+        ],
+        correct: 2,
+        explanation: "🌟 The monitor is an output device because it shows us information."
+    },
+
+    // 8 Analogue vs Digital Devices
+    {
+        type: "text",
+        content: `<h1>Analogue vs Digital Devices</h1>
+            <p>
+                <strong>Analogue devices</strong> use continuous signals.<br>
+                Examples: old radio, traditional telephone, wall clock with hands.<br><br>
+                <strong>Digital devices</strong> use binary (0s and 1s).<br>
+                Examples: mobile phone, computer, tablet, digital watch.<br><br>
+                Digital devices are more accurate and can store more information.
+            </p>
+            <img src="Images/slide9.jpg" alt="Comparison between analogue and digital devices">`
+    },
+
+    // 9 Quiz 3 (after Analogue vs Digital)
+    {
+        type: "quiz",
+        question: "What is the main difference between analogue and digital devices?",
+        options: [
+            "A) Analogue uses 0s and 1s, digital uses continuous signals",
+            "B) Digital uses 0s and 1s, analogue uses continuous signals",
+            "C) Both are the same",
+            "D) Only computers are digital"
+        ],
+        correct: 1,
+        explanation: "Digital devices work with 0s and 1s. Analogue devices use continuous signals."
+    },
+
+    // 10 Mouse Skills
+    {
+        type: "text",
+        content: `<h1>Using the Mouse Properly</h1>
+            <p>
+                • Left button → Single click and double click<br>
+                • Right button → Opens a menu<br>
+                • Drag → Hold left button and move objects<br><br>
+                Good mouse skills help us work faster on the computer.
+            </p>
+            <img src="Images/slide10.jpg" alt="Cartoon showing correct mouse handling">`
+    },
+
+    // 11 Quiz 4 (after Mouse Skills)
+    {
+        type: "quiz",
+        question: "What does double-clicking the mouse usually do?",
+        options: [
+            "A) Opens a menu",
+            "B) Usually opens a file or folder",
+            "C) Moves an object",
+            "D) Turns off the computer"
+        ],
+        correct: 1,
+        explanation: "Double-clicking usually opens a file or folder."
+    },
+
+    // 12 Keyboard Skills
+    {
+        type: "text",
+        content: `<h1>Keyboard Skills - Home Row Keys</h1>
+            <p>
+                The Home Row keys are very important:<br>
+                Left hand → A S D F<br>
+                Right hand → J K L ;<br><br>
+                Practice using Top row, Home row, and Bottom row keys.
+            </p>
+            <img src="Images/slide11.jpg" alt="Keyboard showing home row keys highlighted">`
+    },
+
+    // 13 Quiz 5 (after Keyboard)
+    {
+        type: "quiz",
+        question: "Which keys are the Home Row keys?",
+        options: [
+            "A) Q W E R T",
+            "B) A S D F and J K L ;",
+            "C) Z X C V B",
+            "D) 1 2 3 4 5"
+        ],
+        correct: 1,
+        explanation: "The Home Row keys are A S D F (left hand) and J K L ; (right hand)."
+    },
+{
+        type: "text",
+        content: `<h1>Think About It!</h1>
+            <p>
+                1. Name two output devices and explain what they do.<br><br>
+                2. What is the difference between analogue and digital devices? Give one example of each.<br><br>
+                3. Why is it important to learn how to use the mouse and keyboard properly?<br><br>
+                4. How have computers changed from the 1st generation to the 5th generation?
+            </p>
+            <img src="Images/slide14A.jpg" alt="Children thinking about computers and technology">`
+    },
+
+    // 15 Activity
+    {
+        type: "text",
+        content: `<h1>Activity Time!</h1>
+            <p>
+                1. List three output devices in your computer lab.<br>
+                2. Name one analogue device and one digital device you have at home.<br>
+                3. Practice single click, double click, and dragging with the mouse.
+            </p>
+            <img src="Images/slide14.jpg" alt="Ghanaian pupils using computer in lab">`
+    },
+
+    // Final screen
+    {
+        type: "end",
+        content: `<h1 style="text-align:center; color:#00cc88; font-size:2.8rem;">🎉 Lesson Complete!</h1>
+            <p style="text-align:center; font-size:1.7rem; margin-top:1rem;">Well done! You now understand the generations of computers, output devices, analogue and digital devices, and basic mouse & keyboard skills.</p>`
+    }
+];
+
+    const totalSlides = contents.length - 1;
+    let Points = 5
+    
+    function updateProgress() {
+        const progressPercent = Math.min(((currentContentIndex) / totalSlides) * 100, 100);
+        progressBar.style.width = `${progressPercent}%`;
+        progressText.textContent = `Slide ${Math.min(currentContentIndex + 1, totalSlides)} of ${totalSlides}`;
+    }
+
+    function renderCurrentSlide() {
+        currentQuizAnswered = false;
+        nextBtn.disabled = false;
+
+        const slide = contents[currentContentIndex];
+
+        if (slide.type === "text" || slide.type === "video" || slide.type === "end") {
+            app.innerHTML = slide.content;
+        } 
+        else if (slide.type === "quiz") {
+            nextBtn.disabled = true
+            let optionsHTML = '';
+            slide.options.forEach((opt, i) => {
+                optionsHTML += `
+                    <div class="option" data-index="${i}">
+                        ${opt}
+                    </div>`;
+            });
+
+            app.innerHTML = `
+                <h1 style="text-align:center; color:#3c02b8;">🧪 Quiz Time!</h1>
+                <p class="quiz-question">${slide.question}</p>
+                <div class="quiz-options">${optionsHTML}</div>
+                <button class="submit-quiz-btn" id="submit-quiz">I’m ready! Submit</button>
+                <div id="quiz-feedback"></div>
+            `;
+
+            const optionElements = app.querySelectorAll('.option');
+            optionElements.forEach(opt => {
+                opt.addEventListener('click', () => {
+                    if (currentQuizAnswered) return;
+                    optionElements.forEach(o => o.classList.remove('selected'));
+                    opt.classList.add('selected');
+                });
+            });
+
+            const submitBtn = document.getElementById('submit-quiz');
+            const feedbackDiv = document.getElementById('quiz-feedback');
+
+            submitBtn.addEventListener('click', () => {
+                const selected = app.querySelector('.option.selected');
+                if (!selected) {
+                    alert("Pick one answer first! 🌟");
+                    return;
+                }
+
+                currentQuizAnswered = true;
+                const selectedIndex = parseInt(selected.getAttribute('data-index'));
+                const isCorrect = selectedIndex === slide.correct;
+
+                optionElements.forEach((opt, i) => {
+                    opt.style.pointerEvents = 'none';
+                    if (i === slide.correct){ 
+                        opt.classList.add('correct')
+                    }
+                    else if (i === selectedIndex && !isCorrect){ 
+                        opt.classList.add('wrong')
+                        Points--
+                    };
+                });
+
+                feedbackDiv.className = isCorrect ? 'feedback-correct show' : 'feedback-wrong show';
+                feedbackDiv.innerHTML = slide.explanation;
+
+                submitBtn.style.display = 'none';
+                nextBtn.disabled = false;
+            });
+        }
+    }
+
+function nextSlide() {
+    if (currentContentIndex < contents.length - 1) {
+        currentContentIndex++;
+        renderCurrentSlide();
+        updateProgress();
+        scrollToTop();
+    } else {
+        alert(Points)
+        awardLessonXP();
+    }
+}
+
+function awardLessonXP() {
+    try {
+        const userData = localStorage.getItem("currentUser");
+        
+        if (!userData) {
+            alert("⚠️ No user logged in. Please log in to save progress.");
+            return;
+        }
+
+        let user = JSON.parse(userData);
+        
+        // Initialize xp if it doesn't exist
+        if (typeof user.xp !== "number") {
+            user.xp = 30;
+        }
+
+        const xpEarned = Points*4;
+        user.xp += xpEarned;
+
+        // Save updated user
+        localStorage.setItem("currentUser", JSON.stringify(user));
+        window.location.href = "ict.html"
+
+    } catch (e) {
+        console.error(e);
+        alert("Failed to save XP. Please check if you're logged in.");
+    }
+}
+
+
+    function startApp() {
+        renderCurrentSlide();
+        updateProgress();
+        nextBtn.addEventListener("click", ()=>{
+            scrollToTop();
+            nextSlide()
+        });
+    }
+
+    startApp();
+</script>
+
+</html>
