@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Home | Destiny Academy</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: radial-gradient(circle at center, #001024, #000);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    svg {
+      width: 70vmin;
+      height: auto;
+      display: block;
+    }
+
+    text {
+      fill: none;
+      stroke: #b3e5ff;
+      stroke-width: 1.8;
+      stroke-dasharray: 600;
+      stroke-dashoffset: 600;
+      animation: drawText 3s ease forwards;
+      font-family: 'Poppins', sans-serif;
+      text-anchor: middle;
+      filter: drop-shadow(0 0 8px #81d4fa);
+    }
+
+    .destiny {
+      font-size: 64px;
+      animation-delay: 0s;
+    }
+
+    .academy {
+      font-size: 26px;
+      fill: #b3e5ff;
+      opacity: 0;
+      animation: fadeIn 1.8s ease 3.5s forwards;
+      letter-spacing: 4px;
+      filter: drop-shadow(0 0 6px #64b5f6);
+    }
+
+    .underline {
+      stroke: #80deea;
+      stroke-width: 2.5;
+      fill: none;
+      stroke-dasharray: 400;
+      stroke-dashoffset: 400;
+      animation: drawLine 1.8s ease 2.5s forwards;
+      filter: drop-shadow(0 0 6px #4dd0e1);
+    }
+
+    @keyframes drawText {
+      to { stroke-dashoffset: 0; }
+    }
+
+    @keyframes drawLine {
+      to { stroke-dashoffset: 0; }
+    }
+
+    @keyframes fadeIn {
+      to { opacity: 1; }
+    }
+
+    /* Subtle logo zoom/pulse */
+    .logo-container {
+      animation: pulseZoom 8s ease-in-out forwards;
+    }
+
+    @keyframes pulseZoom {
+      0% { transform: scale(0.9); opacity: 0; }
+      20% { transform: scale(1); opacity: 1; }
+      90% { transform: scale(1); opacity: 1; }
+      100% { transform: scale(1.05); opacity: 0; }
+    }
+
+    /* Reduced Motion */
+    @media (prefers-reduced-motion: reduce) {
+      * {
+        animation: none !important;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="logo-container">
+    <svg viewBox="0 0 600 300" aria-hidden="true">
+      <text x="300" y="140" class="destiny">Destiny</text>
+      <path class="underline" d="M200 170 Q300 185 400 170" />
+      <text x="300" y="220" class="academy">acadeMY</text>
+    </svg>
+  </div>
+
+  <script>
+    // Smooth redirect after 8 seconds
+    setTimeout(() => {
+      document.body.style.transition = "opacity 1s ease";
+      document.body.style.opacity = "0";
+      setTimeout(() => (window.location.href = "main.html"), 1000);
+    }, 8000);
+  </script>
+</body>
+</html>
